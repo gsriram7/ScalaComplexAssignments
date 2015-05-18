@@ -6,6 +6,12 @@ def size(accumulator:Int, number:Int):Int =
   else
     size(accumulator+1, number/10)
 
+def minSize(start: Int, end: Int, prev: Int, curr: Int, blocked: List[Int]):Int ={
+  val sizeOfNumber = size(1, curr)
+  val backward = Math.abs(Math.abs(prev - curr) - blockedChannelsWithinRange(prev, curr, blocked))
+  val forward = Math.abs(curr - end) + prev - blockedChannelsWithinRange(curr, end, blocked) -blockedChannelsWithinRange(start, prev, blocked)
+  Math.min(sizeOfNumber, Math.min(forward, backward))
+}
 
 def minimumClicks(start: Int, end: Int, blocked: List[Int], sequence: List[Int]):Int ={
   var back = start-1
@@ -14,11 +20,8 @@ def minimumClicks(start: Int, end: Int, blocked: List[Int], sequence: List[Int])
   sequence.foreach(curr=>{
     if (back == curr)
       minCount+=1
-    else if (size(1, curr) < Math.abs(Math.abs(prev - curr) - blockedChannelsWithinRange(prev, curr, blocked))) {
-      minCount+=2
-    }
     else
-      minCount+=Math.abs(prev - curr - blockedChannelsWithinRange(prev, curr, blocked))
+      minCount+=minSize(start, end, prev, curr, blocked)
     back = prev
     prev = curr
   })
@@ -26,4 +29,6 @@ def minimumClicks(start: Int, end: Int, blocked: List[Int], sequence: List[Int])
 }
 
 minimumClicks(1, 20, List(18, 19), List(15, 14, 17, 1, 17))
+minimumClicks(103, 108, List(104), List(105, 106, 107, 103, 105))
+
 

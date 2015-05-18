@@ -9,12 +9,14 @@ def size(accumulator:Int, number:Int):Int = {
     size(accumulator+1, number/10)
 }
 size(1, 1234512345)
-def minSize(start:Int, end:Int, curr:Int, prev:Int, blocked:List[Int]):Int ={
+def minSize(start: Int, end: Int, prev: Int, curr: Int, blocked: List[Int]):Int ={
   val sizeOfNumber = size(1, curr)
   val backward = Math.abs(Math.abs(prev - curr) - blockedChannelsWithinRange(prev, curr, blocked)) % end
-  val forward = Math.abs(curr - end) + prev - blockedChannelsWithinRange(curr, end, blocked) -blockedChannelsWithinRange(start, curr, blocked)
+  val forward = Math.abs(curr - end) + prev - blockedChannelsWithinRange(curr, end, blocked) -blockedChannelsWithinRange(start, prev, blocked)
   println("size "+sizeOfNumber+"\nbackward "+backward+"\nforward "+forward)
   Math.min(sizeOfNumber, Math.min(forward, backward))
 }
 
-minSize(1,20,15,11,List(12,18,19))
+minSize(1, 20, 11, 15, List(12, 18, 19))
+
+
