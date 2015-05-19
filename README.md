@@ -10,4 +10,4 @@ minSize function returns the minimum value among clicks to (directly press chann
 
 size function returns number of clicks to directly press channel number
 
-blockedChannelsWithinRange function returns number of blocked channels within a given range to omit the count
+blockedChannel function returns number of blocked channels within or excluding a given range to omit the count
