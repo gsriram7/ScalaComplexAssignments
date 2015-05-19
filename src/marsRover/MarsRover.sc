@@ -14,6 +14,8 @@ val seq = List('E', 'N', 'W', 'S')
 def marsRover(accumulator:Position, sequence: List[Char]):Position ={
   sequence match {
     case head :: Nil => move(head)(accumulator)
+    case head :: tail if (head == 'M') => move(accumulator.direction)(accumulator)
+    case head :: tail if (head != 'M') => move(accumulator.direction)(accumulator)
     case head :: tail => marsRover(move(head)(accumulator), tail)
   }
 }
