@@ -1,3 +1,4 @@
+
 def disp(i:Int, j:Int, b:List[Int], f:Int=>Boolean)= b.count(x=> f(x))
 
 val blo = List(18, 19)
