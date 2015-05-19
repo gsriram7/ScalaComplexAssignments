@@ -1,34 +1,31 @@
-def blockedChannelsWithinRange(start:Int, end:Int, blocked:List[Int]):Int = blocked.count(x =>start < x && x < end)
-
 def size(accumulator:Int, number:Int):Int =  if (number < 10)accumulator else size(accumulator+1, number/10)
 
+def blockedChannelsWithinRange(from: Int, to: Int, blocked: List[Int]) = blocked.count(x=> from<x && x<to)
+
+def backward(prev:Int, curr:Int, blocked:List[Int]):Int ={
+  Math.abs(prev - curr) - blockedChannelsWithinRange(Math.min(prev, curr), Math.max(prev, curr), blocked)
+}
+
+def forward(start:Int, end:Int, prev:Int, curr:Int, blocked:List[Int]):Int ={
+  1 + end - start - Math.abs(prev - curr) - blockedChannelsWithinRange(start, Math.min(prev, curr), blocked) - blockedChannelsWithinRange(Math.max(prev,curr), end, blocked)
+}
+
 def minSize(start: Int, end: Int, prev: Int, curr: Int, blocked: List[Int]):Int ={
-  val sizeOfNumber = size(1, curr)
-  val backward = Math.abs(Math.abs(prev - curr) - blockedChannelsWithinRange(prev, curr, blocked))
-  val forward = Math.abs(curr - end) + prev - blockedChannelsWithinRange(curr, end, blocked) -blockedChannelsWithinRange(start, prev, blocked)
-  println("curr is "+curr+"\tsize "+sizeOfNumber+"\tback "+backward+"\tfor "+forward)
-  Math.min(sizeOfNumber, Math.min(forward, backward))
+  Math.min(size(1, curr), Math.min(forward(start, end, prev, curr, blocked), backward(prev, curr, blocked)))
 }
 
-def minimumClicks(start: Int, end: Int, blocked: List[Int], sequence: List[Int]):Int ={
-  var back = start-1
-  var prev = start
-  var minCount = 0
-  sequence.foreach(curr=>{
-    if (back == curr) {
-      println("back to "+curr)
-      minCount += 1
-    }
-    else
-      minCount+=minSize(start, end, prev, curr, blocked)
-    back = prev
-    prev = curr
-  })
-  minCount
+def minimumClicks(accumulator:Int, start:Int, end:Int, prev:Int, back:Int,blocked:List[Int], sequence:List[Int]):Int ={
+  sequence match {
+    case Nil => accumulator
+    case head :: tail if head == back => minimumClicks(accumulator+1, start, end, head, prev, blocked, tail)
+    case head :: tail => minimumClicks(accumulator+minSize(start, end, prev, head, blocked), start, end, head, prev, blocked, tail)
+  }
 }
 
-minimumClicks(1, 20, List(18, 19), List(15, 14, 17, 1, 17))
-//minimumClicks(103, 108, List(104), List(105, 106, 107, 103, 105))
-//minimumClicks(1, 200, List(), List(1, 100, 1, 101))
+def remote(start:Int, end:Int, blocked:List[Int], channelSequence:List[Int]):Int ={
+  minimumClicks(0, start, end, start, start-1, blocked, channelSequence)
+}
 
-
+remote(1,20,List(18,19),List(15,14,17,1,17))
+remote(103,108,List(104),List(105,106,107,103,105))
+remote(1,200,List(),List(1, 100, 1, 101))
