@@ -7,7 +7,7 @@ def moveSouth(point: Position): Position = Position(point.x - 1, point.y, 'S')
 
 val move = Map('W' -> moveWest _, 'E' -> moveEast _, 'N' -> moveNorth _, 'S' -> moveSouth _)
 
-val seq = List('E', 'M', 'N', 'M', 'M', 'W', 'M', 'S')
+val seq = List('W', 'M', 'S', 'M', 'E', 'M', 'N', 'M', 'M')
 
 def marsRover(accumulator: Position, sequence: List[Char]): Position = {
   sequence match {
@@ -18,4 +18,4 @@ def marsRover(accumulator: Position, sequence: List[Char]): Position = {
   }
 }
 
-marsRover(Position(0, 0, 'E'), seq)
+marsRover(Position(2, 1, 'N'), seq)
