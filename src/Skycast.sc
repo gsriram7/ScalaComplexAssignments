@@ -1,13 +1,13 @@
 def size(accumulator:Int, number:Int):Int =  if (number < 10)accumulator else size(accumulator+1, number/10)
 
-def blockedChannelsWithinRange(from: Int, to: Int, blocked: List[Int]) = blocked.count(x=> from<x && x<to)
+def blockedChannels(blocked: List[Int], f: (Int) => Boolean) = blocked.count(x=> f(x))
 
 def backward(prev:Int, curr:Int, blocked:List[Int]):Int ={
-  Math.abs(prev - curr) - blockedChannelsWithinRange(Math.min(prev, curr), Math.max(prev, curr), blocked)
+  Math.abs(prev - curr) - blockedChannels(blocked, (x: Int) => {Math.min(prev, curr) < x && x<Math.max(prev, curr)})
 }
 
 def forward(start:Int, end:Int, prev:Int, curr:Int, blocked:List[Int]):Int ={
-  1 + end - start - Math.abs(prev - curr) - blockedChannelsWithinRange(start, Math.min(prev, curr), blocked) - blockedChannelsWithinRange(Math.max(prev,curr), end, blocked)
+  1 + end - start - Math.abs(prev - curr) - blockedChannels(blocked, (x:Int) => {(start<x && x<Math.min(prev,curr))||(Math.max(prev,curr)<x && x<end)})
 }
 
 def minSize(start: Int, end: Int, prev: Int, curr: Int, blocked: List[Int]):Int ={
