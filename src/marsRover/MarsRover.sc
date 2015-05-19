@@ -1,14 +1,21 @@
-case class Coordinate(x:Int, y:Int)
+case class Position(x: Int, y: Int, direction: Char)
 
-val point = Coordinate(0, 0)
+val point = Position(0, 0, 'W')
 
-def moveWest(point:Coordinate):Coordinate = Coordinate(point.x, point.y-1)
+def moveWest(point: Position): Position = Position(point.x, point.y - 1, 'W')
+def moveEast(point: Position): Position = Position(point.x, point.y + 1, 'E')
+def moveNorth(point: Position): Position = Position(point.x + 1, point.y, 'N')
+def moveSouth(point: Position): Position = Position(point.x - 1, point.y, 'S')
 
-def moveEast(point:Coordinate):Coordinate = Coordinate(point.x, point.y+1)
+val move = Map('W' -> moveWest _, 'E' -> moveEast _, 'N' -> moveNorth _, 'S' -> moveSouth _)
 
-def moveNorth(point:Coordinate):Coordinate = Coordinate(point.x+1, point.y)
+val seq = List('E', 'N', 'W', 'S')
 
-def moveSouth(point:Coordinate):Coordinate = Coordinate(point.x-1, point.y)
+def marsRover(accumulator:Position, sequence: List[Char]):Position ={
+  sequence match {
+    case head :: Nil => move(head)(accumulator)
+    case head :: tail => marsRover(move(head)(accumulator), tail)
+  }
+}
 
-
-
+marsRover(point, seq)
