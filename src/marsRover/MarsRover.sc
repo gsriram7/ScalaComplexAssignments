@@ -11,12 +11,12 @@ val directions: Seq[Char] = Array('N', 'E', 'S', 'W')
 def marsRover(accumulator: Position, sequence: List[Char]): Position = {
   sequence match {
     case head :: Nil if head == 'M' => move(accumulator.direction)(accumulator)
-    case head :: Nil if head == 'R' => Position(accumulator.x, accumulator.y, directions((directions.indexOf(accumulator.direction)+1)%4))
-    case head :: Nil if head == 'L' => Position(accumulator.x, accumulator.y, directions((directions.indexOf(accumulator.direction)-1)%4))
+    case head :: Nil if head == 'R' => Position(accumulator.x, accumulator.y, directions((directions.indexOf(accumulator.direction) + 1 + 4) % 4))
+    case head :: Nil if head == 'L' => Position(accumulator.x, accumulator.y, directions((directions.indexOf(accumulator.direction) - 1 + 4) % 4))
 
     case head :: tail if head == 'M' => marsRover(move(accumulator.direction)(accumulator), tail)
-    case head :: tail if head == 'R' => marsRover(Position(accumulator.x, accumulator.y, directions((directions.indexOf(accumulator.direction)+1+4)%4)), tail)
-    case head :: tail if head == 'L' => marsRover(Position(accumulator.x, accumulator.y, directions((directions.indexOf(accumulator.direction)-1+4)%4)), tail)
+    case head :: tail if head == 'R' => marsRover(Position(accumulator.x, accumulator.y, directions((directions.indexOf(accumulator.direction) + 1 + 4) % 4)), tail)
+    case head :: tail if head == 'L' => marsRover(Position(accumulator.x, accumulator.y, directions((directions.indexOf(accumulator.direction) - 1 + 4) % 4)), tail)
   }
 }
 
