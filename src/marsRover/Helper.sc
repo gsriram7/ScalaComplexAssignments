@@ -12,3 +12,14 @@ def p(x:Int) = x+2
 val r = Map('a'->p _)
 
 r('a')(5)
+
+val dir = Array('N', 'E', 'W', 'S')
+
+dir.indexOf('W')
+
+val d2: Seq[Char] = dir
+
+d2.indexOf('E')
+
+
+
