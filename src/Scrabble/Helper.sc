@@ -2,9 +2,8 @@ val compute = Map("TW"->{(_: Int) * 3}, "DW"->{(_: Int) * 2})
 
 val alphabetScores: Seq[Int] = Array(1,3,3,2,1,4,2,4,1,8,5,1,3,1,1,3,10,1,1,1,1,4,4,8,4,10)
 
-val grid: Seq[Seq[String]] = Array(  Array("TW","","","DL","","","","TW","","","","DL","","","TW").toSeq,  Array("","DW","","","","TL","","","","TL","","","","DW","").toSeq,  Array("","","DW","","","","DL","","DL","","","","DW","","").toSeq,  Array("DL","","","DW","","","","DL","","","","DW","","","DL").toSeq,  Array("","","","","DW","","","","","","DW","","","","").toSeq,  Array("","TL","","","","TL","","","","TL","","","","TL","").toSeq,  Array("","","DL","","","","DL","","DL","","","","DL","","").toSeq,  Array("TW","","","DL","","","","DW","","","","DL","","","TW").toSeq,  Array("","","DL","","","","DL","","DL","","","","DL","","").toSeq,  Array("","TL","","","","TL","","","","TL","","","","TL","").toSeq,  Array("","","","","DW","","","","","","DW","","","","").toSeq,  Array("DL","","","DW","","","","DL","","","","DW","","","DL").toSeq,  Array("","","DW","","","","DL","","DL","","","","DW","","").toSeq,  Array("","DW","","","","TL","","","","TL","","","","DW","").toSeq,  Array("TW","","","DL","","","","TW","","","","DL","","","TW").toSeq)
 
-println(grid)
+
 def incr(accumulator:Int, spl2:Map[String, Int], seq:List[String]):Int ={
   seq match {
     case Nil => accumulator * spl2("TW") * spl2("DW")
@@ -15,4 +14,28 @@ def incr(accumulator:Int, spl2:Map[String, Int], seq:List[String]):Int ={
 
 incr(0,Map("TW" -> 1, "DW" -> 1), List("b","o","o","TW","TW","DW","DW"))
 
+def mulBy3(x:Int):Int = x*3
+def mulBy2(x:Int):Int = x*2
 
+val c:Map[String, (Int)=>Int] = Map("TW" -> mulBy3 _,"DW" -> mulBy2 _,"TL" -> mulBy3 _, "DL" -> mulBy2 _)
+
+c("TW")(9)
+
+
+val grid: Seq[Seq[String]] = Array(
+  Array("TW","","","DL","","","","TW","","","","DL","","","TW").toSeq,
+  Array("","DW","","","","TL","","","","TL","","","","DW","").toSeq,
+  Array("","","DW","","","","DL","","DL","","","","DW","","").toSeq,
+  Array("DL","","","DW","","","","DL","","","","DW","","","DL").toSeq,
+  Array("","","","","DW","","","","","","DW","","","","").toSeq,
+  Array("","TL","","","","TL","","","","TL","","","","TL","").toSeq,
+  Array("","","DL","","","","DL","","DL","","","","DL","","").toSeq,
+  Array("TW","","","DL","","","","DW","","","","DL","","","TW").toSeq,
+  Array("","","DL","","","","DL","","DL","","","","DL","","").toSeq,
+  Array("","TL","","","","TL","","","","TL","","","","TL","").toSeq,
+  Array("","","","","DW","","","","","","DW","","","","").toSeq,
+  Array("DL","","","DW","","","","DL","","","","DW","","","DL").toSeq,
+  Array("","","DW","","","","DL","","DL","","","","DW","","").toSeq,
+  Array("","DW","","","","TL","","","","TL","","","","DW","").toSeq,
+  Array("TW","","","DL","","","","TW","","","","DL","","","TW").toSeq
+)
