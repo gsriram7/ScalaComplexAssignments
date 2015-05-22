@@ -1,7 +1,7 @@
 case class Position(x:Int, y:Int)
 
-def moveRight(point:Position):Position = Position(point.x, point.y+1)
-def moveDown(point:Position):Position = Position(point.x+1, point.y)
+def moveRight(point:Position):Position = Position(point.x+1, point.y)
+def moveDown(point:Position):Position = Position(point.x, point.y-1)
 
 def mulBy3(x:Int):Int = x*3
 def mulBy2(x:Int):Int = x*2
