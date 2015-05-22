@@ -17,5 +17,6 @@ def scrabble(result: Int, point: Position, input: List[Char], dw: Int, tw: Int):
   }
 }
 
+scrabble(0, Position(8, 7), "bootcamp".toCharArray.toList, 1, 1)
 scrabble(0, Position(14, 14), "cryptozoologies".toCharArray.toList, 1, 1)
 
